@@ -1,37 +1,25 @@
-# Nome do Workflow
-name: Continuous Integration 
+name: Continuous Integration
 
-# Evento que irá disparar o Workflow 
-# on: [pull_request, push]
 on: pull_request
 
-# para quais casos o workflow acontece 
-# on: 
-#   pull_request:
-#     branches: 
-#       ['prod']
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
 
-# jobs: passo a passo que o workflow vai realizar  
-jobs: 
-  # nome do job 
-  continuous-integration: 
-    # Máquina Virtual 
-      runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # passos dentro do job 
-      steps: 
-        # action checkout: clona e faz checkout para branch específica
-        - uses: actions/checkout@v3 #especificar versão da action 
-        # instalar o node 
-        - name: Using Node.js
-          # setup do Node 
-          uses: actions/setup-node@v2
-          # qual versão do node queremos usar 
-          with: 
-            node-version: 18.
-          # rodar comandos 
-        - name: run install, build and test
-          run: |
-            npm install 
-            npm run build 
-            npm run test 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test
