@@ -8,8 +8,9 @@
     --primary-color:#755139FF;
     --secondary-color:#D4B996FF;
 }
+
 body{
-    background-color: var(--primary-color);
+    background-color: var(--primary-color);     
 }
 html{
     font-size: 75.5%;
